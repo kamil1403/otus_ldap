@@ -55,7 +55,7 @@ ipa user-add otus-user --first=Otus --last=User --password
 ```
 
 ### 3. Проверка авторизации на клиенте
-Заходим на клиент под пользователем, которого нет в локальном `/etc/passwd`:
+Заходим на клиент:
 ```bash
 vagrant ssh client1.otus.lan
 kinit otus-user
