@@ -11,9 +11,9 @@
 ### ✅ Результат
 - [x] Стенд поднимается через `vagrant up`.
 - [x] Сервер и клиенты настроены. Результат см. на скриншотах:
-  - 🖼️ [ipa_server_setup](otus_root_ipa_1.png)
-  - 🖼️ [ansible_provision](otus_ldap.png)
-  - 🖼️ [user_auth_test](otus_user.png)
+  - 🖼️ [ipa_server_setup](https://github.com/kamil1403/otus_ldap/blob/main/otus_root_ipa_1.png)
+  - 🖼️ [ansible_provision](https://github.com/kamil1403/otus_ldap/blob/main/otus_ldap.png)
+  - 🖼️ [user_auth_test](https://github.com/kamil1403/otus_ldap/blob/main/otus_user.png)
     
 ---
 
