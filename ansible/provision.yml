@@ -1,0 +1,43 @@
+---
+- name: Configure FreeIPA Clients
+  hosts: clients
+  become: yes
+  tasks:
+    - name: Fix CentOS 8 repositories
+      shell: |
+        sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+        sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+
+    - name: Install FreeIPA Client and Tools
+      yum:
+        name: 
+          - freeipa-client
+          - chrony
+          - vim
+        state: present
+
+    - name: Configure Timezone and Chrony
+      shell: |
+        timedatectl set-timezone Europe/Moscow
+        systemctl enable --now chronyd
+
+    - name: Update /etc/hosts from template
+      template:
+        src: templates/hosts.j2
+        dest: /etc/hosts
+
+    - name: Disable Firewall and SELinux
+      shell: |
+        systemctl stop firewalld || true
+        systemctl disable firewalld || true
+        setenforce 0 || true
+        sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+
+    - name: Join FreeIPA Domain
+      shell: >
+        echo "yes" | ipa-client-install --mkhomedir 
+        --domain=OTUS.LAN 
+        --server=ipa.otus.lan 
+        --no-ntp 
+        -p admin 
+        -w otus2025 --unattended
